@@ -1,0 +1,8 @@
+.env
+venv/
+__pycache__/
+.DS_Store
+
+# Ignore user-uploaded data, but keep the demo file so others can try the app
+*.csv
+!data/sample_reviews.csv

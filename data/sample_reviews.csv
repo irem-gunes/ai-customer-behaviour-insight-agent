@@ -1,0 +1,11 @@
+review_id,date,rating,review_text
+1,2026-01-01,2,"Delivery was late and I received no update from customer service."
+2,2026-01-02,5,"Great product and fast delivery. Very happy with the service."
+3,2026-01-03,1,"The refund process was confusing and nobody replied to my email."
+4,2026-01-04,3,"The app is okay but checkout has too many steps."
+5,2026-01-05,2,"Customer support was rude and unhelpful."
+6,2026-01-06,4,"Good quality product but the delivery tracking could be clearer."
+7,2026-01-07,1,"I was charged twice and it took too long to get my money back."
+8,2026-01-08,5,"Excellent customer service and easy ordering process."
+9,2026-01-09,2,"The website was confusing and I could not find my order status."
+10,2026-01-10,1,"Long delays, poor communication, and no apology."
