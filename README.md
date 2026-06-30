@@ -55,7 +55,11 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 Then open the local URL Streamlit prints (usually http://localhost:8501) and upload a CSV.
-A demo file is included at `data/sample_reviews.csv` — your CSV needs `rating` and `review_text` columns.
+
+### Data
+A small demo file is included at `data/sample_reviews.csv` (340 hotel reviews, stratified across 1–5 star ratings) so you can try the app immediately. In the app you choose which columns hold the review text and the rating.
+
+The demo is sampled from the public **TripAdvisor hotel review dataset** (~255k reviews). The full dataset is not committed here because of its size — download it separately if you want to run the agent at scale.
 
 ## Demo
 <!-- Add a screenshot or GIF of the dashboard here, e.g.: -->
