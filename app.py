@@ -234,7 +234,47 @@ if uploaded_file is not None:
 
             theme_df = pd.DataFrame(theme_summary)
 
+            theme_df = theme_df.sort_values(
+                by="Priority Score",
+                ascending=False
+            )
+
+            theme_df = theme_df.rename(columns={
+                "Mentions in Negative Reviews": "Negative Review Mentions",
+                "Behavioural Insight": "Behavioural Insight",
+                "Business Risk": "Business Risk",
+                "Recommendation": "Recommended Action"
+            })
+
+            st.subheader("What Should the Business Fix First?")
+
+            top_issue = theme_df.sort_values(
+                by="Priority Score",
+                ascending=False
+            ).iloc[0]
+
+            st.info(
+                f"**Fix first:** {top_issue['Pain Point']}.\n\n"
+                f"This issue has the highest priority score because it appears frequently in negative reviews "
+                f"and has a high estimated business impact."
+            )
+
+            st.write(f"**Why it matters:** {top_issue['Business Risk']}")
+            st.write(f"**Recommended action:** {top_issue['Recommendation']}")
+
             st.dataframe(theme_df)
+
+            st.subheader("Insight Cards")
+            
+            for _, row in theme_df.head(3).iterrows():
+                with st.container():
+                    st.markdown(f"### {row['Pain Point']}")
+                    st.write(f"**Priority:** {row['Priority']} | **Score:** {row['Priority Score']}")
+                    st.write(f"**Evidence:** {row['Example Review']}")
+                    st.write(f"**Behavioural driver:** {row['Behavioural Insight']}")
+                    st.write(f"**Business risk:** {row['Business Risk']}")
+                    st.write(f"**Recommended action:** {row['Recommendation']}")
+                    st.divider()
 
             st.subheader("AI-Generated Executive Summary")
 
@@ -279,7 +319,7 @@ if uploaded_file is not None:
                 )
             
             st.subheader("Top Pain Points")
-            pain_point_chart = theme_df.set_index("Pain Point")["Mentions in Negative Reviews"]
+            pain_point_chart = theme_df.set_index("Pain Point")["Negative Review Mentions"]
             st.bar_chart(pain_point_chart)
             
 

@@ -76,7 +76,7 @@ def summarise_themes(df):
     return theme_counts
 
 
-def get_example_reviews(df, theme, max_examples=2):
+def get_example_reviews(df, theme, max_examples=3):
     """
     Returns example reviews where a theme was detected.
     """
