@@ -21,6 +21,7 @@ The agent analyses review text, detects common issues, explains why those issues
 - Downloadable insight report
 - Streamlit dashboard
 - AI-generated executive summary using an LLM
+- Interactive "Ask the Agent" Q&A on the analysed feedback
 - Evidence-grounded recommendation generation
 
 ## Tech Stack

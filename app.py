@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 
-from src.ai_summary_agent import generate_ai_summary
+from src.ai_summary_agent import generate_ai_summary, ask_agent
 from src.data_cleaning import prepare_reviews
 from src.sentiment_analysis import add_sentiment
 from src.theme_extraction import add_themes, summarise_themes, get_example_reviews
@@ -125,6 +125,27 @@ if uploaded_file is not None:
                 with st.spinner("Generating AI-powered customer insight summary..."):
                     ai_summary = generate_ai_summary(theme_df)
                     st.write(ai_summary)
+
+            st.caption("First AI response may take ~30s while the local model loads.")
+
+            st.subheader("Ask the Agent")
+            st.write(
+                "Ask a question about the analysed feedback. The agent answers using "
+                "only the detected pain points above."
+                )
+
+            user_question = st.text_input(
+                "Your question",
+                placeholder="e.g. Which pain point should we fix first and why?"
+                )
+
+            if st.button("Ask"):
+                if user_question.strip():
+                    with st.spinner("The agent is analysing your question..."):
+                        answer = ask_agent(theme_df, user_question)
+                        st.write(answer)
+                else:
+                    st.warning("Please enter a question first.")
 
             csv = theme_df.to_csv(index=False).encode("utf-8")
             
