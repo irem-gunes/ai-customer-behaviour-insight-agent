@@ -85,3 +85,6 @@ Sentiment is handled in two deliberate stages:
 - The LLM sentiment check is intentionally capped to a small sample, because local inference takes a few seconds per review and does not scale to the full ~255k-review dataset. For production scale, a fine-tuned transformer classifier would be the next step.
 - Pain-point detection is keyword/theme based, so it captures the themes defined in `src/theme_extraction.py` and may miss issues phrased in unexpected ways.
 - The LLM runs locally via Ollama, so output quality depends on the chosen model (`llama3.2` by default).
+
+## Dataset licence note
+The included demo sample is used for educational portfolio purposes. The full dataset is not redistributed in this repository; users should download the original dataset from its source and follow the dataset licence/terms.
