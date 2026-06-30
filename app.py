@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 from src.ai_summary_agent import generate_ai_summary, ask_agent
 from src.data_cleaning import prepare_reviews
-from src.sentiment_analysis import add_sentiment
+from src.sentiment_analysis import add_sentiment, get_llm_sentiment
 from src.theme_extraction import add_themes, summarise_themes, get_example_reviews
 from src.behaviour_insights import get_behavioural_insight
 from src.recommendations import get_recommendation
@@ -126,6 +126,60 @@ if uploaded_file is not None:
         st.subheader("Sentiment Distribution")
         sentiment_counts = df["sentiment_label"].value_counts()
         st.bar_chart(sentiment_counts)
+        st.caption(
+            "Fast rule-based sentiment (TextBlob) is applied to every review above. "
+            "It is keyword-based and cannot read sarcasm or context."
+        )
+
+        st.subheader("AI Sentiment Check (handles sarcasm)")
+        st.write(
+            "Re-analyse a sample of reviews with the local LLM, which reads each "
+            "review in context. The table highlights where the AI disagrees with "
+            "the fast rule-based score — often the sarcastic or mixed reviews."
+        )
+
+        sample_size = st.slider(
+            "Number of reviews to re-check with the AI",
+            min_value=5,
+            max_value=50,
+            value=15,
+            step=5,
+            help="Each review takes a few seconds, so this is intentionally capped."
+        )
+
+        if st.button("Run AI Sentiment Check"):
+            ai_sample = df.head(sample_size).copy()
+            progress = st.progress(0.0)
+            llm_labels = []
+            for i, text in enumerate(ai_sample["clean_review"].tolist()):
+                llm_labels.append(get_llm_sentiment(text))
+                progress.progress((i + 1) / len(ai_sample))
+            progress.empty()
+
+            ai_sample["AI Sentiment"] = llm_labels
+
+            comparison = ai_sample.rename(columns={
+                "review_text": "Review",
+                "sentiment_label": "Rule-based"
+            })[["Review", "Rule-based", "AI Sentiment"]]
+
+            disagreements = comparison[
+                comparison["Rule-based"] != comparison["AI Sentiment"]
+            ]
+
+            st.metric(
+                "Reviews where AI and rule-based disagree",
+                f"{len(disagreements)} of {len(comparison)}"
+            )
+
+            st.dataframe(comparison, use_container_width=True)
+
+            if not disagreements.empty:
+                st.write(
+                    "**Where they disagree** (these are usually sarcastic, "
+                    "nuanced, or mixed reviews the rule-based score gets wrong):"
+                )
+                st.dataframe(disagreements, use_container_width=True)
 
         st.subheader("Rating Distribution")
         

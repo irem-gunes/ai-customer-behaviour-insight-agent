@@ -12,7 +12,8 @@ The agent analyses review text, detects common issues, explains why those issues
 ## Key Features
 - CSV review upload
 - Data cleaning
-- Sentiment analysis
+- Fast rule-based sentiment analysis (TextBlob) across all reviews
+- Optional LLM sentiment check that handles sarcasm and nuance
 - Pain point detection
 - Behavioural insight layer
 - Business risk explanation
@@ -73,3 +74,14 @@ The project combines data analytics and behavioural science. It does not only id
 
 ## AI Agent Layer
 The app includes an AI summary agent that takes the structured pain point table as input and generates an executive summary. The prompt instructs the model to use only the evidence provided by the analysis pipeline and avoid inventing claims.
+
+## Sentiment: two layers
+Sentiment is handled in two deliberate stages:
+
+1. **Rule-based (TextBlob)** runs on *every* review. It is fast and cheap, which is what makes the dashboard responsive on large datasets — but, being keyword-based, it cannot read sarcasm or context (e.g. *"Five stars for the noise that kept me up all night. Wonderful."* scores as positive).
+2. **LLM sentiment check (Ollama)** runs on a small, user-selected sample. Because it reads each review in context, it correctly handles sarcasm, double negatives, and mixed sentiment. The app surfaces exactly where the two methods disagree — which is usually the most interesting subset of reviews.
+
+## Limitations
+- The LLM sentiment check is intentionally capped to a small sample, because local inference takes a few seconds per review and does not scale to the full ~255k-review dataset. For production scale, a fine-tuned transformer classifier would be the next step.
+- Pain-point detection is keyword/theme based, so it captures the themes defined in `src/theme_extraction.py` and may miss issues phrased in unexpected ways.
+- The LLM runs locally via Ollama, so output quality depends on the chosen model (`llama3.2` by default).
