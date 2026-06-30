@@ -46,14 +46,14 @@ The AI summary runs **entirely locally** through Ollama, so no API keys or cloud
 
 ### Installation
 ```bash
-git clone https://github.com/<your-username>/ai-customer-behaviour-agent.git
+git clone https://github.com/irem-gunes/ai-customer-behaviour-agent.git
 cd ai-customer-behaviour-agent
 pip install -r requirements.txt
 ```
 
 ### Run the app
 ```bash
-streamlit run app.py
+python -m streamlit run app.py
 ```
 Then open the local URL Streamlit prints (usually http://localhost:8501) and upload a CSV.
 
