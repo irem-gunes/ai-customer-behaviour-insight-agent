@@ -27,6 +27,11 @@ def prepare_reviews(df):
             raise ValueError(f"Missing required column: {col}")
 
     df = df.copy()
+    
+    df["review_text"] = df["review_text"].fillna("")
+    df["rating"] = pd.to_numeric(df["rating"], errors="coerce")
+    df = df.dropna(subset=["rating"])
+
     df["clean_review"] = df["review_text"].apply(clean_text)
 
     return df

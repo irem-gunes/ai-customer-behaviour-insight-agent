@@ -58,8 +58,51 @@ if uploaded_file is not None:
     st.subheader("Raw Data Preview")
     st.dataframe(df.head())
 
+    st.subheader("Select Columns")
+
+    default_text_index = list(df.columns).index("review_text") if "review_text" in df.columns else 0
+    default_rating_index = list(df.columns).index("overall") if "overall" in df.columns else 0
+
+    text_column = st.selectbox(
+        "Select the column containing review text",
+        df.columns,
+        index=default_text_index
+    )
+
+    rating_column = st.selectbox(
+        "Select the column containing overall rating",
+        df.columns,
+        index=default_rating_index
+    )
+
+    df = df.rename(columns={
+        text_column: "review_text",
+        rating_column: "rating"
+    })
+
+    df["rating"] = pd.to_numeric(df["rating"], errors="coerce")
+
+    if df["rating"].max() > 10:
+        st.warning(
+            "The selected rating column contains values above 10. "
+            "This may be an ID column, not a rating column. Please choose a different rating column."
+        )
+        st.stop()
+
+    max_rows = st.slider(
+        "Number of reviews to analyse",
+        min_value=100,
+        max_value=min(len(df), 10000),
+        value=min(len(df), 1000),
+        step=100
+    )
+
+    df = df.head(max_rows)
+
     try:
         df = prepare_reviews(df)
+
+
         df = add_sentiment(df)
         df = add_themes(df)
 
@@ -85,8 +128,28 @@ if uploaded_file is not None:
         st.bar_chart(sentiment_counts)
 
         st.subheader("Rating Distribution")
-        rating_counts = df["rating"].value_counts().sort_index()
-        st.bar_chart(rating_counts)
+        
+        df["rating_band"] = pd.cut(
+            df["rating"],
+            bins=[0, 1, 2, 3, 4, 5],
+            labels=["0-1", "1-2", "2-3", "3-4", "4-5"],
+            include_lowest=True
+        )
+
+        rating_distribution = (
+            df["rating_band"]
+            .value_counts()
+            .sort_index()
+            .reset_index()
+        )
+
+        rating_distribution.columns = ["Rating Band", "Number of Reviews"]
+
+        st.dataframe(rating_distribution)
+
+        st.bar_chart(
+            rating_distribution.set_index("Rating Band")["Number of Reviews"]
+        )
 
         st.subheader("Detected Pain Points")
 
@@ -136,14 +199,19 @@ if uploaded_file is not None:
 
             user_question = st.text_input(
                 "Your question",
-                placeholder="e.g. Which pain point should we fix first and why?"
+                placeholder="e.g. What should the business fix first and why?"
                 )
 
             if st.button("Ask"):
-                if user_question.strip():
-                    with st.spinner("The agent is analysing your question..."):
-                        answer = ask_agent(theme_df, user_question)
-                        st.write(answer)
+                if user_question:
+                    try:
+                        with st.spinner("The agent is analysing your question..."):
+                            answer = ask_agent(theme_df, user_question)
+                            st.write(answer)
+
+                    except Exception as e:
+                        st.error("The agent could not answer the question.")
+                        st.write(f"Error details: {e}")
                 else:
                     st.warning("Please enter a question first.")
 

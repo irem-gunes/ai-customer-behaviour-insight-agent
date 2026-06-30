@@ -1,10 +1,12 @@
 BUSINESS_IMPACT = {
-    "Delivery delays": 3,
-    "Poor communication": 3,
-    "Refund issues": 4,
-    "Customer support": 4,
-    "App or website friction": 3,
-    "Tracking issues": 2,
+    "Cleanliness issues": 5,
+    "Poor service": 4,
+    "Room quality issues": 4,
+    "Noise and sleep problems": 5,
+    "Value for money concerns": 4,
+    "Location problems": 3,
+    "Booking or check-in problems": 4,
+    "Breakfast or food issues": 3,
 }
 
 

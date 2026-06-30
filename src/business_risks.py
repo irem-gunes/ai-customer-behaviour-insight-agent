@@ -1,10 +1,12 @@
 BUSINESS_RISKS = {
-    "Delivery delays": "May reduce repeat purchases and increase complaints if expectations are not managed.",
-    "Poor communication": "May reduce customer trust and increase support follow-ups.",
-    "Refund issues": "May create strong dissatisfaction because money-related friction feels high-stakes.",
-    "Customer support": "May damage brand trust and increase churn risk.",
-    "App or website friction": "May reduce conversion and increase drop-off during checkout.",
-    "Tracking issues": "May increase uncertainty and avoidable contact with support teams.",
+    "Cleanliness issues": "High risk of negative reviews because cleanliness is a basic expectation in hospitality.",
+    "Poor service": "May reduce guest trust, increase complaint escalation, and harm repeat booking likelihood.",
+    "Room quality issues": "May create expectation gaps and reduce perceived value for money.",
+    "Noise and sleep problems": "May strongly reduce satisfaction because sleep quality is central to the hotel experience.",
+    "Value for money concerns": "May damage perceived fairness and reduce willingness to recommend.",
+    "Location problems": "May lead to dissatisfaction when convenience expectations are not managed before arrival.",
+    "Booking or check-in problems": "May create a poor first impression and increase frustration early in the guest journey.",
+    "Breakfast or food issues": "May reduce overall satisfaction because food is a visible, memorable service touchpoint."
 }
 
 

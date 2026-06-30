@@ -1,10 +1,12 @@
 RECOMMENDATIONS = {
-    "Delivery delays": "Send proactive delivery updates and set clearer delivery expectations at checkout.",
-    "Poor communication": "Create automated status updates and improve response-time standards.",
-    "Refund issues": "Add a refund tracking page and clearer refund timelines.",
-    "Customer support": "Review support scripts, escalation rules, and empathy training.",
-    "App or website friction": "Simplify the checkout journey and reduce unnecessary steps.",
-    "Tracking issues": "Improve order tracking visibility and send milestone notifications.",
+    "Cleanliness issues": "Prioritise room inspection standards, bathroom checks, and visible housekeeping quality controls.",
+    "Poor service": "Review front-desk service standards, escalation rules, and staff empathy training.",
+    "Room quality issues": "Audit recurring room defects and prioritise maintenance fixes for comfort-related problems.",
+    "Noise and sleep problems": "Identify rooms affected by noise, improve guest warnings, and offer proactive room changes where possible.",
+    "Value for money concerns": "Improve expectation-setting in listings and review whether pricing matches the delivered experience.",
+    "Location problems": "Make transport, parking, and distance information clearer before booking.",
+    "Booking or check-in problems": "Simplify check-in communication and reduce uncertainty around reservation status and waiting times.",
+    "Breakfast or food issues": "Review breakfast quality, freshness, and service consistency."
 }
 
 

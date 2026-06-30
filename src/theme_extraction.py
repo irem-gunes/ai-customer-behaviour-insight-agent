@@ -2,12 +2,38 @@ from collections import Counter
 
 
 THEME_KEYWORDS = {
-    "Delivery delays": ["late", "delay", "delayed", "waiting", "long delivery"],
-    "Poor communication": ["no update", "communication", "nobody replied", "no apology"],
-    "Refund issues": ["refund", "money back", "charged", "charged twice"],
-    "Customer support": ["support", "customer service", "rude", "unhelpful"],
-    "App or website friction": ["app", "website", "checkout", "confusing", "too many steps"],
-    "Tracking issues": ["tracking", "order status", "status"],
+    "Cleanliness issues": [
+        "dirty", "unclean", "stain", "stains", "dust", "dusty",
+        "smell", "smelly", "mold", "mould", "bathroom dirty"
+    ],
+    "Poor service": [
+        "rude", "unhelpful", "staff", "reception", "front desk",
+        "service", "ignored", "unfriendly"
+    ],
+    "Room quality issues": [
+        "room", "small room", "old room", "dated", "broken",
+        "bed", "uncomfortable", "air conditioning", "ac", "heating"
+    ],
+    "Noise and sleep problems": [
+        "noise", "noisy", "loud", "sleep", "could not sleep",
+        "thin walls", "traffic"
+    ],
+    "Value for money concerns": [
+        "expensive", "overpriced", "not worth", "price", "cost",
+        "value", "money"
+    ],
+    "Location problems": [
+        "location", "far", "distance", "hard to find", "transport",
+        "parking"
+    ],
+    "Booking or check-in problems": [
+        "booking", "check in", "check-in", "reservation",
+        "waiting", "queue", "late check in"
+    ],
+    "Breakfast or food issues": [
+        "breakfast", "food", "restaurant", "buffet", "coffee",
+        "cold food"
+    ]
 }
 
 
